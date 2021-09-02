@@ -19,7 +19,7 @@
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
-        <div class="link-reister">
+        <div class="link-register">
          <router-link to="/register">新規登録</router-link>
         </div>
       </template>
