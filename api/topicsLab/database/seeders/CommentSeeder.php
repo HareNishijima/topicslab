@@ -24,7 +24,6 @@ class CommentSeeder extends Seeder
             'body' => '水筒を使ってゴミや購入頻度をへらすことが一番かなと思います。',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
-            'good' => '3',
         ]);
         DB::table('comments')->insert([
             'id' => '2',
@@ -33,7 +32,6 @@ class CommentSeeder extends Seeder
             'body' => "やっぱり、いまの技術力で、\nどうにかしないと。",
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
-            'good' => '0',
         ]);
     }
 }

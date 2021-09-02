@@ -13,6 +13,7 @@ class CreateTopicLikesTable extends Migration
      */
     public function up()
     {
+        //トピックのいいねの数を保存するテーブル
         Schema::create('topic_likes', function (Blueprint $table) {
             $table->integer('good');//いいねの数
             $table->foreignId('topic_id')->constrained('topics');

@@ -24,7 +24,6 @@ class TopicSeeder extends Seeder
             'body' => 'ペットボトルは、捨てるときにかさばりますし、購入頻度を減らしたいのですが、どうしたら環境のためになるのでしょうか。',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
-            'good' => '5',
         ]);
         DB::table('topics')->insert([
             'id' => '2',
@@ -35,7 +34,6 @@ class TopicSeeder extends Seeder
 というのも、IPCC（気候変動に関する政府間パネル：Intergovernmental Panel on Climate Change）という組織が、2021年8月6日に第6次評価報告書を公開しました。',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
-            'good' => '9',
         ]);
     }
 }

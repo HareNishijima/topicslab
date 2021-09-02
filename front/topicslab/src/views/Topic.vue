@@ -8,6 +8,7 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <!--<div class="body-text">いいねの数：{{topic_likes.bood}}</div>-->
       </template>
       <template #footer>
         <span>
@@ -25,6 +26,7 @@ import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
 
+//  export defaultで囲まれた範囲は他のコンポーネント(templete,style)から参照できるようになる
 export default {
   name: 'Topic',
   components: {
@@ -53,6 +55,18 @@ export default {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
+                /*  res.data[0]の構成
+                body:トピックの本文
+                comments(リスト):トピックに対するコメントの情報
+                {body:コメントの本文, created_at:投稿日時, id:コメントのid, topic_id:トピックのid, updated_at:更新日時}
+                created_at:投稿日時
+                id:トピックのid
+                title:トピックのタイトル
+                updated_at:更新日時
+                user(リスト)：投稿者の情報 説明は省略
+                {created_at, email, emali_verified_at, id, name, updated_at}
+                */
+                console.log(res.data[0])
                 this.topic = res.data[0]
                 this.user = this.topic.user
                 this.comments.splice(0)

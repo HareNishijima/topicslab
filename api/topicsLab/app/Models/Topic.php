@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
+    
     use HasFactory;
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);//1つのトピックに対してユーザが1つ
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);//1つのトピックに対してコメントが複数
     }
 
     public static function scopeSimpleAllList($query)
