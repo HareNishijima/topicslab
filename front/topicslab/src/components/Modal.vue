@@ -12,21 +12,21 @@
 
 <script>
 export default {
-  name: "Modal",
-  data: function() {
+  name: 'Modal',
+  data: function () {
     return {
       isOpen: false
-    };
+    }
   },
   methods: {
-    open: function() {
-      this.isOpen = true;
+    open: function () {
+      this.isOpen = true
     },
-    close: function() {
-      this.isOpen = false;
+    close: function () {
+      this.isOpen = false
     }
   }
-};
+}
 </script>
 <style lang="sass">
   .el-modal

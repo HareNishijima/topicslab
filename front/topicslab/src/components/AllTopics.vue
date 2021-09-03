@@ -16,6 +16,7 @@
 <script>
 import axios from '@/supports/axios'
 import moment from 'moment'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'AllTopics',
@@ -23,6 +24,9 @@ export default {
     return {
       topics: []
     }
+  },
+  componemts: {
+    Modal
   },
   mounted () {
     this.getAllTopics()
