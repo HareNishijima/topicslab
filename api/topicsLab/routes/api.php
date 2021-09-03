@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
-|
+| ここでは、アプリケーションのAPIルートを登録することができます。
+| これらのルートは、RouteServiceProviderによって、"api "という
+| ミドルウェアグループが割り当てられたグループ内で読み込まれます。APIの構築をお楽しみください。
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -38,6 +40,7 @@ Route::get('/topics', [
     'index'
 ]);
 
+//{}で囲まれた部分はルートパラメータ
 Route::middleware('auth:sanctum')->get('/topic/{topic}', [
     App\Http\Controllers\TopicController::class,
     'show'
