@@ -12,12 +12,17 @@ class Topic extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);//1つのトピックに対してユーザが1つ
+        return $this->belongsTo(User::class);//トピックはユーザが持つ情報(逆の関係)
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);//1つのトピックに対してコメントが複数
+        return $this->hasMany(Comment::class);//トピックは複数のコメントを持つ
+    }
+
+    public function like()//いいねの数
+    {
+        return $this->hasMany(TopicLike::class);//トピックに対していいねをしたuser_idが複数
     }
 
     public static function scopeSimpleAllList($query)

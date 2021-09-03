@@ -20,12 +20,14 @@ class TopiclikesSeeder extends Seeder
         DB::table('topic_likes')->insert([
             'topic_id' => '1',
             'user_id' => '1',
-            'good'=>'20',
+        ]);
+        DB::table('topic_likes')->insert([
+            'topic_id' => '1',
+            'user_id' => '2',
         ]);
         DB::table('topic_likes')->insert([
             'topic_id' => '2',
-            'user_id' => '1',
-            'good'=>'15',
+            'user_id' => '2',
         ]);
     }
 }

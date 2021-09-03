@@ -28,9 +28,12 @@ class AddColumnToTopicTable extends Migration
     public function down()
     {
         Schema::table('topics', function (Blueprint $table) {
+            /*
             $table->dropColumn('title');
             $table->dropColumn('body');
             $table->dropColumn('user_id');
+            */
+            Schema::dropIfExists('topics');
         });
     }
 }

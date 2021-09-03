@@ -18,12 +18,14 @@ class CommentLikesSeeder extends Seeder
     public function run()
     {
         DB::table('comment_likes')->insert([
-            'good' => '12',
+            'user_id' => '1',
+            'comment_id' => '1',
+        ]);
+        DB::table('comment_likes')->insert([
             'user_id' => '2',
             'comment_id' => '1',
         ]);
         DB::table('comment_likes')->insert([
-            'good' => '9',
             'user_id' => '2',
             'comment_id' => '2',
         ]);

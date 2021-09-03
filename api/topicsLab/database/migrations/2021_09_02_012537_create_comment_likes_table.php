@@ -14,9 +14,9 @@ class CreateCommentLikesTable extends Migration
     public function up()
     {
         Schema::create('comment_likes', function (Blueprint $table) {
-            $table->integer('good');//いいねの数
-            $table->foreignId('comment_id')->constrained('comments');
-            $table->foreignId('user_id')->constrained('users');
+            //$table->integer('good');
+            $table->foreignId('comment_id')->constrained('comments');//コメントのid
+            $table->integer('user_id');//いいねをした人のユーザid
         });
     }
 
