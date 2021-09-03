@@ -8,6 +8,7 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <Button class="p-button-outlined"/>
       </template>
       <template #footer>
         <span>
@@ -53,6 +54,7 @@ export default {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
+                console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
                 this.comments.splice(0)
@@ -83,5 +85,18 @@ export default {
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+.p-button-outlined{
+  font-family: primeicons;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-top: 15px;
+  /* float: right;
+  overflow: hidden; */
+}
+.p-button-outlined::before{
+  content: "\e984";
 }
 </style>
