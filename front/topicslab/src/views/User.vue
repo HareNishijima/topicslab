@@ -7,7 +7,7 @@
     </Card>
     <Card>
       <template #content>
-        <DataLists />
+        <ContentsLists />
       </template>
     </Card>
   </div>
@@ -15,7 +15,7 @@
 
 <script>
 import axios from '@/supports/axios'
-import DataLists from '@/components/Lists.vue'
+import ContentsLists from '@/components/ContentsLists.vue'
 
 export default {
   name: 'user',
@@ -26,7 +26,7 @@ export default {
     }
   },
   components: {
-    DataLists
+    ContentsLists
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
