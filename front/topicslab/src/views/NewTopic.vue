@@ -9,6 +9,7 @@
         <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
         <small id="title-help">タイトルを入力してください。</small>
         <p><span>{{messages.title}}</span></p>
+        <!-- ↑元々は<p>{{messages.title}}</p>-->
       </div>
       <div class="p-field">
         <label for="title">Topic内容</label>
@@ -83,13 +84,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .p-field * {
   display: block;
   width: 100%;
-}
-
-.p-card-body > p > span {
-  color: #d00;
+  span{
+    color: #d00;
+  }
 }
 </style>
