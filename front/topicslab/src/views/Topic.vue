@@ -9,7 +9,7 @@
           {{topic.body}}
         </div>
         <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
-        <Button icon="pi pi-heart" class=" p-button-danger p-button-rounded p-button-sm p-button-text" iconPos="right"/>
+        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
       </template>
       <template #footer>
         <span>
@@ -38,7 +38,16 @@ export default {
       topic: {},
       user: {},
       comments: [],
-      id: null
+      id: null,
+      likeClicked: false
+    }
+  },
+  computed: {
+    buttonClass () {
+      if (this.likeClicked === true) {
+        return 'p-button-raised'
+      }
+      return 'p-button-text'
     }
   },
   mounted () {
@@ -49,6 +58,10 @@ export default {
     this.getTopic()
   },
   methods: {
+    likeTopic () {
+      console.log('aaaa')
+      this.likeClicked = true
+    },
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
@@ -76,6 +89,7 @@ export default {
       this.comments.push(comment)
     }
   }
+  // v-bind:class ="p-button-raised:'p-button-raised'"
 }
 </script>
 

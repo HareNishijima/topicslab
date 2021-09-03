@@ -8,7 +8,7 @@
         {{comment.body}}
       </div>
       <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
-      <Button icon="pi pi-heart" class=" p-button-danger p-button-rounded p-button-sm p-button-text" iconPos="right"/>
+      <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeComment" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
     </Fieldset>
   </div>
 </template>
@@ -18,6 +18,24 @@ export default {
   name: 'Comments',
   props: {
     comments: Array
+  },
+  data () {
+    return {
+      likeClicked: false
+    }
+  },
+  computed: {
+    buttonClass () {
+      if (this.likeClicked === true) {
+        return 'p-button-raised'
+      }
+      return 'p-button-text'
+    }
+  },
+  methods: {
+    likeComment () {
+      this.likeClicked = true
+    }
   }
 }
 </script>
