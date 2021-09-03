@@ -3,14 +3,11 @@
     <Card>
       <template #content>
         {{user.name}}
-        <TabView>
-         <TabPanel header="Header I">
-           Content I
-         </TabPanel>
-         <TabPanel header="Header II">
-           Content II
-         </TabPanel>
-      </TabView>
+      </template>
+    </Card>
+    <Card>
+      <template #content>
+        <DataLists />
       </template>
     </Card>
   </div>
@@ -18,6 +15,7 @@
 
 <script>
 import axios from '@/supports/axios'
+import DataLists from '@/components/Lists.vue'
 
 export default {
   name: 'user',
@@ -26,6 +24,9 @@ export default {
       id: null,
       user: {}
     }
+  },
+  components: {
+    DataLists
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {

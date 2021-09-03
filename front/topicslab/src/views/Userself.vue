@@ -13,11 +13,17 @@
         <Button label="Withdraw" class="p-button-danger" v-on:click="withdraw" />
       </template>
     </Card>
+    <Card>
+      <template #content>
+        <DataLists />
+      </template>
+    </Card>
   </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import DataLists from '@/components/Lists.vue'
 
 export default {
   name: 'Userself',
@@ -25,6 +31,9 @@ export default {
     return {
       user: {}
     }
+  },
+  components: {
+    DataLists
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
