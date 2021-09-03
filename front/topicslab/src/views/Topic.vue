@@ -8,7 +8,6 @@
         <div class="body-text">
           {{topic.body}}
         </div>
-        <div class="body-text">{{topic.like}}</div><!--いいねの数-->
       </template>
       <template #footer>
         <span>
@@ -18,7 +17,6 @@
     </Card>
     <Comments :comments="this.comments" />
     <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
-      <div class="body-text">{{this.comment_likes}}</div><!--いいねの数-->
   </div>
 </template>
 
@@ -38,9 +36,9 @@ export default {
     return {
       topic: {},
       user: {},
-      like: {},
+      topic_likes: {},
       comments: [],
-      comment_likes: null,
+      comment_likes: {},
       id: null
     }
   },
@@ -61,13 +59,12 @@ export default {
                 //  topicのデータを取得する
                 this.topic = res.data[0]
                 this.user = this.topic.user
-                //  ↓WithCount()に変える必要がある
-                this.topic.like = 'いいねの数：' + String(this.topic.like.length)
+                this.topic_likes = this.topic.like
 
-                console.log(this.topic.comments)
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
-                this.comment_likes = 'いいねの数：' + String(this.comments[0].like.length)
+                this.comment_likes = this.comments[0].like
+
               } else {
                 console.log('取得失敗')
               }
