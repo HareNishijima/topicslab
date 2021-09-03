@@ -8,7 +8,8 @@
         <div class="body-text">
           {{topic.body}}
         </div>
-        <Button class="p-button-outlined"/>
+        <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
+        <Button icon="pi pi-heart" class=" p-button-danger p-button-rounded p-button-sm p-button-text" iconPos="right"/>
       </template>
       <template #footer>
         <span>
@@ -78,7 +79,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@mixin p-button(){float:right;
+}
 .body-text {
   white-space:pre-wrap;
 }
@@ -86,17 +89,11 @@ export default {
   text-align: right;
   display: block;
 }
-.p-button-outlined{
-  font-family: primeicons;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  box-sizing: border-box;
-  margin-top: 15px;
-  /* float: right;
-  overflow: hidden; */
+
+.p-button-text{
+  @include p-button;
 }
-.p-button-outlined::before{
-  content: "\e984";
+.p-button-raised{
+  @include p-button;
 }
 </style>

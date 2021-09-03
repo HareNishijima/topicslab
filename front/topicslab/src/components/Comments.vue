@@ -7,6 +7,8 @@
       <div class="comment-text">
         {{comment.body}}
       </div>
+      <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
+      <Button icon="pi pi-heart" class=" p-button-danger p-button-rounded p-button-sm p-button-text" iconPos="right"/>
     </Fieldset>
   </div>
 </template>
@@ -21,8 +23,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@mixin p-button(){float:right;
+}
 .p-fieldset {
   margin-top: 20px;
+  .p-button-text{
+    @include p-button;
+  }
+  .p-button-raised{
+    @include p-button;
+  }
 }
 
 .comment-text {
