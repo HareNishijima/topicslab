@@ -3,6 +3,14 @@
     <Card>
       <template #content>
         {{user.name}}
+        <TabView>
+         <TabPanel header="Header I">
+           Content I
+         </TabPanel>
+         <TabPanel header="Header II">
+           Content II
+         </TabPanel>
+      </TabView>
       </template>
     </Card>
   </div>
