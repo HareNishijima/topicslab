@@ -89,7 +89,6 @@ export default {
       this.comments.push(comment)
     }
   }
-  // v-bind:class ="p-button-raised:'p-button-raised'"
 }
 </script>
 
