@@ -87,5 +87,9 @@ export default {
       width: 100%;
     }
   }
+  //エラー時メッセージの色
+  span{
+    color: #d00;
+  }
 }
 </style>

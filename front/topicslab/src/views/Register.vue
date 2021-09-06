@@ -59,7 +59,7 @@ export default {
             password: this.password
           })
             .then((res) => {
-              if (res.data.status_code === 201) {
+              if (res.data === 201) {
                 alert('ユーザー登録成功')
               } else {
                 this.message = 'ユーザー登録に失敗しました。'
