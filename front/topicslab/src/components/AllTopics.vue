@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal v-show="showContent" @close="closeModal" />
     <Card v-for="topic in topics" :key="topic.id">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
@@ -19,10 +20,12 @@ import moment from 'moment'
 import Modal from '@/components/Modal'
 
 export default {
+  components: { Modal },
   name: 'AllTopics',
   data () {
     return {
-      topics: []
+      topics: [],
+      showContent: false
     }
   },
   componemts: {
@@ -45,12 +48,19 @@ export default {
                 this.topics.push(...res.data)
               } else {
                 console.log('取得失敗')
+                this.openModal()
               }
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

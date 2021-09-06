@@ -1,5 +1,6 @@
 <template>
   <Card>
+    <Modal v-show="showContent" @close="closeModal" />
     <template #title>
       新しいTopicを投稿しよう
     </template>
@@ -25,9 +26,13 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'NewTopic',
+  components: {
+    Modal
+  },
   data () {
     return {
       title: '',
@@ -35,7 +40,8 @@ export default {
       messages: {
         submit: '',
         title: '',
-        body: ''
+        body: '',
+        showContent: false
       }
     }
   },
@@ -68,16 +74,24 @@ export default {
               //
               } else {
                 this.messages.submit = '送信に失敗しました。'
+                this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
               this.messages.submit = '送信に失敗しました。'
+              this.openModal()
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

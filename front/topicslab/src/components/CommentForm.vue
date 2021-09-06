@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal v-show="showContent" @close="closeModal" />
     <Card>
       <template #content>
         <div class="p-field">
@@ -16,16 +17,21 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'CommentForm',
+  components: {
+    Modal
+  },
   props: {
     topicId: Number
   },
   data () {
     return {
       comment: '',
-      message: ''
+      message: '',
+      showContent: false
     }
   },
   methods: {
@@ -58,6 +64,15 @@ export default {
         .catch((err) => {
           alert(err)
         })
+    },
+    receiveComment (comment) {
+      this.comments.push(comment)
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

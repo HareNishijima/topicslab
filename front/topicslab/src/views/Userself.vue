@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         mypage
@@ -18,13 +19,18 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'Userself',
   data () {
     return {
-      user: {}
+      user: {},
+      showContent: false
     }
+  },
+  components: {
+    Modal
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
@@ -67,12 +73,19 @@ export default {
                 this.user = res.data
               } else {
                 console.log('取得失敗')
+                this.openModal()
               }
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

@@ -1,51 +1,79 @@
 <template>
-  <div>
-    <div class="el-modal" :aria-hidden="isOpen ? 'false' : 'true'">
-      <div class="el-modal__holder">
-        <button @click="close()">閉じる</button>
+  <transition name="modal" appear>
+    <div class="modal modal-overlay" @click.self="$emit('close')">
+      <div class="modal-window">
+        <div class="modal-content">
+          axios通信エラー
+        </div>
+        <footer class="modal-footer">
+          <slot name="footer">
+            <button @click="$emit('close')">Close</button>
+          </slot>
+        </footer>
       </div>
-      <div class="el-modal__overlay"></div>
     </div>
-    <button @click="open()">開く</button>
-  </div>
+  </transition>
 </template>
 
 <script>
 export default {
-  name: 'Modal',
-  data: function () {
-    return {
-      isOpen: false
-    }
-  },
-  methods: {
-    open: function () {
-      this.isOpen = true
-    },
-    close: function () {
-      this.isOpen = false
-    }
+  name: 'Modal'
+}
+
+</script>
+<style lang="scss" scoped>
+.modal {
+  &.modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 30;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  &-window {
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  &-content {
+    padding: 10px 20px;
+  }
+
+  &-footer {
+    background: #ccc;
+    padding: 10px;
+    text-align: right;
   }
 }
-</script>
-<style lang="sass">
-  .el-modal
-    visibility: hidden
 
-    &__holder
-      position: fixed
-      z-index: 1100
-      background-color: blue
-      width: 50%
-      height: 50%
+// オーバーレイのトランジション
+.modal-enter-active, .modal-leave-active {
+  transition: opacity 0.4s;
 
-    &__overlay
-      position: fixed
-      z-index: 1000
-      background-color: red
-      width: 100%
-      height: 100%
+  // オーバーレイに包含されているモーダルウィンドウのトランジション
+  .modal-window {
+    transition: opacity 0.4s, transform 0.4s;
+  }
+}
 
-    &[aria-hidden=false]
-      visibility: visible
+// ディレイを付けるとモーダルウィンドウが消えた後にオーバーレイが消える
+.modal-leave-active {
+  transition: opacity 0.6s ease 0.4s;
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+
+  .modal-window {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
 </style>

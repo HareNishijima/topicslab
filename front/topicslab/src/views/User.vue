@@ -10,13 +10,18 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'user',
+  component: {
+    Modal
+  },
   data () {
     return {
       id: null,
-      user: {}
+      user: {},
+      showContent: false
     }
   },
   mounted () {
@@ -42,6 +47,7 @@ export default {
                 this.user = res.data
               } else {
                 console.log('取得失敗')
+                this.openModal()
               }
             })
             .catch((err) => {
@@ -51,6 +57,12 @@ export default {
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

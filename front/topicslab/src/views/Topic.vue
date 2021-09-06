@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         {{topic.title}}
@@ -24,19 +25,22 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'Topic',
   components: {
     Comments,
-    CommentForm
+    CommentForm,
+    Modal
   },
   data () {
     return {
       topic: {},
       user: {},
       comments: [],
-      id: null
+      id: null,
+      showContent: false
     }
   },
   mounted () {
@@ -59,10 +63,12 @@ export default {
                 this.comments.push(...this.topic.comments)
               } else {
                 console.log('取得失敗')
+                this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
+              this.openModal()
             })
         })
         .catch((err) => {
@@ -71,6 +77,12 @@ export default {
     },
     receiveComment (comment) {
       this.comments.push(comment)
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }
