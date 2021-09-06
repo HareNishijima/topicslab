@@ -27,6 +27,7 @@ import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
 
+//  export defaultで囲まれた範囲は他のコンポーネント(templete,style)から参照できるようになる
 export default {
   name: 'Topic',
   components: {
@@ -37,6 +38,7 @@ export default {
     return {
       topic: {},
       user: {},
+      topic_likes: {},
       comments: [],
       id: null,
       likeClicked: false
@@ -71,8 +73,12 @@ export default {
                 console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
+                this.topic_likes = this.topic.like
+
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
+                this.comment_likes = this.comments[0].like
+
               } else {
                 console.log('取得失敗')
               }

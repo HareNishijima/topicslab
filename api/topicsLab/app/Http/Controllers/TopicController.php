@@ -54,7 +54,11 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        return Topic::where('id', $topic->id)->with('user', 'comments.user')->get();
+        //withの文字列はModelsのメソッド名
+        //comments.userはComment.phpのuser()を実行する
+        //$topic->idによりtopic_idが一致する情報しか返さない
+        //よってlike(topic_likes)が返すリストの長さがいいねの数になる
+        return Topic::where('id', $topic->id)->with('user', 'comments.user', 'like', 'comments.like')->get();
     }
 
     /**
