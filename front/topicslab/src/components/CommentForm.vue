@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-show="showContent" @close="closeModal" />
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #content>
         <div class="p-field">
@@ -31,6 +31,7 @@ export default {
     return {
       comment: '',
       message: '',
+      errMessage: '送信に失敗しました。',
       showContent: false
     }
   },
@@ -53,12 +54,12 @@ export default {
                 this.comment = ''
                 this.$emit('sentComment', res.data)
               } else {
-                this.message = '送信に失敗しました。'
+                this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
-              this.message = '送信に失敗しました。'
+              this.openModal()
             })
         })
         .catch((err) => {

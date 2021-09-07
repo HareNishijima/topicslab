@@ -1,27 +1,29 @@
-<template>
-  <Card>
-    <Modal v-show="showContent" @close="closeModal" />
-    <template #title>
-      新しいTopicを投稿しよう
-    </template>
-    <template #content>
-      <div class="p-field">
-        <label for="title">Topicタイトル</label>
-        <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
-        <small id="title-help">タイトルを入力してください。</small>
-        <p>{{messages.title}}</p>
-      </div>
-      <div class="p-field">
-        <label for="title">Topic内容</label>
-        <Textarea v-model="body" :autoResize="true" rows="10" />
-        <p>{{messages.body}}</p>
-      </div>
-      <div class="p-field">
-        <Button icon="pi pi-check" label="Save" v-on:click="submit" />
-        <p>{{messages.submit}}</p>
-      </div>
-    </template>
-  </Card>
+mas<template>
+  <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
+    <Card>
+      <template #title>
+        新しいTopicを投稿しよう
+      </template>
+      <template #content>
+        <div class="p-field">
+          <label for="title">Topicタイトル</label>
+          <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
+          <small id="title-help">タイトルを入力してください。</small>
+          <p>{{messages.title}}</p>
+        </div>
+        <div class="p-field">
+          <label for="title">Topic内容</label>
+          <Textarea v-model="body" :autoResize="true" rows="10" />
+          <p>{{messages.body}}</p>
+        </div>
+        <div class="p-field">
+          <Button icon="pi pi-check" label="Save" v-on:click="submit" />
+          <p>{{messages.submit}}</p>
+        </div>
+      </template>
+    </Card>
+  </div>
 </template>
 
 <script>
@@ -40,9 +42,10 @@ export default {
       messages: {
         submit: '',
         title: '',
-        body: '',
-        showContent: false
-      }
+        body: ''
+      },
+      errMessage: '送信に失敗しました。',
+      showContent: false
     }
   },
   mounted () {
@@ -73,13 +76,11 @@ export default {
               if (res.status === 201) {
               //
               } else {
-                this.messages.submit = '送信に失敗しました。'
                 this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
-              this.messages.submit = '送信に失敗しました。'
               this.openModal()
             })
         })

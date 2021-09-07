@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #content>
         {{user.name}}
@@ -14,13 +15,14 @@ import Modal from '@/components/Modal'
 
 export default {
   name: 'user',
-  component: {
+  components: {
     Modal
   },
   data () {
     return {
       id: null,
       user: {},
+      errMessage: 'ユーザー情報の取得に失敗しました．',
       showContent: false
     }
   },

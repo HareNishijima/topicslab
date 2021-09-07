@@ -3,7 +3,7 @@
     <div class="modal modal-overlay" @click.self="$emit('close')">
       <div class="modal-window">
         <div class="modal-content">
-          axios通信エラー
+          <p>{{message}}</p>
         </div>
         <footer class="modal-footer">
           <slot name="footer">
@@ -17,7 +17,8 @@
 
 <script>
 export default {
-  name: 'Modal'
+  name: 'Modal',
+  props: ['message']
 }
 
 </script>

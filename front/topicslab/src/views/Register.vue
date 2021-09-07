@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-show="showContent" @close="closeModal" />
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         Register
@@ -43,8 +43,9 @@ export default {
       name: '',
       email: '',
       password: '',
+      errMessage: 'ユーザー登録に失敗しました。',
       message: '',
-      showcontent: false
+      showContent: false
     }
   },
   methods: {
@@ -68,13 +69,12 @@ export default {
               if (res.data.status_code === 201) {
                 alert('ユーザー登録成功')
               } else {
-                this.message = 'ユーザー登録に失敗しました。'
                 this.openModal()
+                this.message = 'ユーザー登録に失敗しました。'
               }
             })
             .catch((err) => {
               console.log(err)
-              this.message = 'ユーザー登録に失敗しました。'
               this.openModal()
             })
         })

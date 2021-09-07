@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-show="showContent" @close="closeModal" />
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card v-for="topic in topics" :key="topic.id">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
@@ -20,11 +20,12 @@ import moment from 'moment'
 import Modal from '@/components/Modal'
 
 export default {
-  components: { Modal },
   name: 'AllTopics',
+  components: { Modal },
   data () {
     return {
       topics: [],
+      errMessage: 'Topicsの取得に失敗しました．',
       showContent: false
     }
   },

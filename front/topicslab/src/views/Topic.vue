@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-show="showContent" @close="closeModal" />
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         {{topic.title}}
@@ -40,6 +40,7 @@ export default {
       user: {},
       comments: [],
       id: null,
+      errMessage: 'Topicの取得に失敗しました．',
       showContent: false
     }
   },

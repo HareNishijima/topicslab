@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-show="showContent" @close="closeModal" />
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         mypage
@@ -26,6 +26,7 @@ export default {
   data () {
     return {
       user: {},
+      errMessage: 'ユーザ情報の取得に失敗しました．',
       showContent: false
     }
   },
