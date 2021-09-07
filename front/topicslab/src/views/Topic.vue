@@ -56,6 +56,8 @@ export default {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
+                console.log('取得成功')
+                console.log(res)
                 //  topicのデータを取得する
                 this.topic = res.data[0]
                 this.user = this.topic.user
@@ -64,7 +66,6 @@ export default {
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
                 this.comment_likes = this.comments[0].like
-
               } else {
                 console.log('取得失敗')
               }
@@ -79,6 +80,33 @@ export default {
     },
     receiveComment (comment) {
       this.comments.push(comment)
+    },
+    //  トピックにいいねをする
+    likeTopic (topicId, userId) {
+      console.log('likeTopic')
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          //  console.log('sanctum ok')
+          axios.post('/api/topiclike', {
+            topic_id: topicId,
+            user_id: userId
+          })
+            .then((res) => {
+              //  console.log(res)
+              if (res.status === 201) {
+                //  console.log('いいねしました')
+              } else {
+                //  console.log('いいねに失敗しました')
+                console.log(res)
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        .catch((err) => {
+          alert(err)
+        })
     }
   }
 }

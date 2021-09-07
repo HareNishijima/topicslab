@@ -51,8 +51,18 @@ Route::middleware('auth:sanctum')->post('/comment', [
     'store'
 ]);
 
+Route::middleware('auth:sanctum')->post('/commentlike', [
+    App\Http\Controllers\CommentLikeController::class,
+    'store'
+]);
+
 Route::middleware('auth:sanctum')->post('/topic', [
     App\Http\Controllers\TopicController::class,
+    'store'
+]);
+
+Route::middleware('auth:sanctum')->post('/topiclike', [
+    App\Http\Controllers\TopiclikeController::class,
     'store'
 ]);
 
