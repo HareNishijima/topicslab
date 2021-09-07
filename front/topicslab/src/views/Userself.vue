@@ -29,6 +29,10 @@ export default {
   data () {
     return {
       user: {},
+      topics: {},
+      comments: {},
+      topiclikes: {},
+      commentlikes: {},
       loading_status: true
     }
   },
@@ -69,11 +73,27 @@ export default {
         .then(() => {
           axios.get('/api/user')
             .then((res) => {
+              //  ログインしているアカウントの情報を取得
               if (res.status === 200) {
                 this.user = res.data
-                this.loading_status = false
+                //  ユーザが投稿したトピックやコメントの情報を取得
+                axios.get(`/api/user/${this.user.id}`)
+                  .then((res) => {
+                    //  console.log(res)
+                    if (res.status === 200) {
+                      //  console.log('取得成功')
+                      const data = res.data[0]// 取得したデータ
+                      this.topics = data.topics
+                      this.comments = data.comments
+                      this.topiclikes = data.topiclikes
+                      this.commentlikes = data.commentlikes
+                      this.loading_status = false
+                    } else {
+                      //  console.log('取得失敗')
+                    }
+                  })
               } else {
-                console.log('取得失敗')
+                console.log('ログインしたアカウント情報取得失敗')
               }
             })
         })

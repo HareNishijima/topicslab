@@ -16,14 +16,10 @@ use Illuminate\Support\Facades\Route;
 | ミドルウェアグループが割り当てられたグループ内で読み込まれます。APIの構築をお楽しみください。
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('/login', [
-    App\Http\Controllers\LoginController::class,
-    'login'
-]);
 
 Route::post('/register', [
     App\Http\Controllers\UserController::class,

@@ -53,8 +53,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //topicからuser_idが一致する情報を取得
-        return User::where('id', $user->id)->with('topics.user', 'comments.user')->get();
+        //user_idを持つ全テーブルを取得
+        return User::where('id', $user->id)->with('topics', 'comments', 'topiclikes', 'commentlikes')->get();
         //return $user;
     }
 
