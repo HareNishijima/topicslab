@@ -17,8 +17,8 @@
         <p><span>{{messages.body}}</span></p>
       </div>
       <div class="p-field">
-        <Button icon="pi pi-check" label="Save" v-on:click="submit" />
-        <p><span>{{messages.submit}}</span></p>
+        <Button icon="pi pi-check" label="保存" v-on:click="submit" />
+        <p>{{messages.submit}}</p>
       </div>
     </template>
   </Card>
