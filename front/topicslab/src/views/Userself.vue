@@ -91,8 +91,4 @@ export default {
     margin-right: 10px;
   }
 }
-
-.p-card-content {
-  height: 100px;
-}
 </style>
