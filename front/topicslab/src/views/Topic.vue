@@ -8,6 +8,8 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
+        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
       </template>
       <template #footer>
         <span>
@@ -25,6 +27,7 @@ import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
 
+//  export defaultで囲まれた範囲は他のコンポーネント(templete,style)から参照できるようになる
 export default {
   name: 'Topic',
   components: {
@@ -35,8 +38,18 @@ export default {
     return {
       topic: {},
       user: {},
+      topic_likes: {},
       comments: [],
-      id: null
+      id: null,
+      likeClicked: false
+    }
+  },
+  computed: {
+    buttonClass () {
+      if (this.likeClicked === true) {
+        return 'p-button-raised'
+      }
+      return 'p-button-text'
     }
   },
   mounted () {
@@ -47,16 +60,25 @@ export default {
     this.getTopic()
   },
   methods: {
+    likeTopic () {
+      console.log('aaaa')
+      this.likeClicked = true
+    },
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
+                console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
+                this.topic_likes = this.topic.like
+
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
+                this.comment_likes = this.comments[0].like
+
               } else {
                 console.log('取得失敗')
               }
@@ -76,12 +98,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@mixin p-button(){float:right;
+}
 .body-text {
   white-space:pre-wrap;
 }
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+
+.p-button-text{
+  @include p-button;
+}
+.p-button-raised{
+  @include p-button;
 }
 </style>
