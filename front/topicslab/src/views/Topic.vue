@@ -8,6 +8,8 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
+        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic(this.topic.id, this.user.id)" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
       </template>
       <template #footer>
         <span>
@@ -38,11 +40,23 @@ export default {
       user: {},
       topic_likes: {},
       comments: [],
-      comment_likes: {},
-      id: null
+      id: null,
+      likeClicked: false
+    }
+  },
+  computed: {
+    buttonClass () {
+      if (this.likeClicked === true) {
+        return 'p-button-raised'
+      }
+      return 'p-button-text'
     }
   },
   mounted () {
+    if (localStorage.getItem('authenticated') !== 'true') {
+      this.$router.push('/login')
+      return
+    }
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
@@ -56,9 +70,8 @@ export default {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
-                console.log('取得成功')
-                console.log(res)
-                //  topicのデータを取得する
+                //  console.log('取得成功')
+                //  console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
                 this.topic_likes = this.topic.like
@@ -86,17 +99,18 @@ export default {
       console.log('likeTopic')
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          //  console.log('sanctum ok')
+          console.log('sanctum ok')
           axios.post('/api/topiclike', {
             topic_id: topicId,
             user_id: userId
           })
             .then((res) => {
-              //  console.log(res)
+              console.log(res)
               if (res.status === 201) {
-                //  console.log('いいねしました')
+                console.log('いいねしました')
+                this.likeClicked = true
               } else {
-                //  console.log('いいねに失敗しました')
+                console.log('いいねに失敗しました')
                 console.log(res)
               }
             })
@@ -112,12 +126,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@mixin p-button(){float:right;
+}
 .body-text {
   white-space:pre-wrap;
 }
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+
+.p-button-text{
+  @include p-button;
+}
+.p-button-raised{
+  @include p-button;
 }
 </style>

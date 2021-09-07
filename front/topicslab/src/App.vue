@@ -1,16 +1,19 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <router-link to="/">ホーム</router-link> |
     <template v-if="authenticated">
-      <a>mypage</a>
+      <router-link to="/mypage">mypage</router-link>
     </template>
     <template v-else>
-      <router-link to="/login">login</router-link>
+      <router-link to="/login">ログイン</router-link>
     </template>
   </div>
   <div class="content">
     <router-view/>
   </div>
+  <footer>
+  <p><small>&copy; 2021 Zteam.</small></p>
+  </footer>
 </template>
 
 <script>

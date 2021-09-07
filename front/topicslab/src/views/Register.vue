@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        Register
+        新規登録
       </template>
       <template #content>
         <div class="fields">
@@ -21,7 +21,7 @@
         </div>
         <span>{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Register" v-on:click="register" />
+          <Button icon="pi pi-check" label="新規登録" v-on:click="register" />
         </div>
       </template>
     </Card>
@@ -59,8 +59,9 @@ export default {
             password: this.password
           })
             .then((res) => {
-              if (res.data === 201) {
+              if (res.status === 201) {
                 alert('ユーザー登録成功')
+                this.$router.push('/login')
               } else {
                 this.message = 'ユーザー登録に失敗しました。'
               }
