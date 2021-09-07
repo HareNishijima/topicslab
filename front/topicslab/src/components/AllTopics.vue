@@ -1,7 +1,7 @@
 L<template>
   <div>
     <Loading v-show="loading_status" />
-    <Card v-for="topic in topics" :key="topic.id">
+    <Card v-for="topic in topics" :key="topic.id" v-show="!loding_status">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
           <h2>
@@ -20,11 +20,8 @@ import moment from 'moment'
 import Loading from '@/components/Loading'
 
 export default {
-  components: { Loading },
   name: 'AllTopics',
-  conponents: {
-    Loading
-  },
+  components: { Loading },
   data () {
     return {
       topics: [],

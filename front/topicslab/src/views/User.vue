@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #content>
         {{user.name}}
       </template>
@@ -10,13 +11,18 @@
 
 <script>
 import axios from '@/supports/axios'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'user',
+  components: {
+    Loading
+  },
   data () {
     return {
       id: null,
-      user: {}
+      user: {},
+      loading_status: true
     }
   },
   mounted () {
@@ -40,6 +46,7 @@ export default {
               console.log(res)
               if (res.status === 200) {
                 this.user = res.data
+                this.loading_status = false
               } else {
                 console.log('取得失敗')
               }

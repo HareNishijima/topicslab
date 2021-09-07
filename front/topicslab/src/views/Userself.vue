@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #title>
         mypage
       </template>
@@ -18,12 +19,17 @@
 
 <script>
 import axios from '@/supports/axios'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'Userself',
+  components: {
+    Loading
+  },
   data () {
     return {
-      user: {}
+      user: {},
+      loading_status: true
     }
   },
   mounted () {
@@ -65,6 +71,7 @@ export default {
             .then((res) => {
               if (res.status === 200) {
                 this.user = res.data
+                this.loading_status = false
               } else {
                 console.log('取得失敗')
               }
@@ -83,5 +90,9 @@ export default {
   .p-button {
     margin-right: 10px;
   }
+}
+
+.p-card-content {
+  height: 100px;
 }
 </style>

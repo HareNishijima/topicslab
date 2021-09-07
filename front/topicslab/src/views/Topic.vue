@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #title>
         {{topic.title}}
       </template>
@@ -24,19 +25,22 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'Topic',
   components: {
     Comments,
-    CommentForm
+    CommentForm,
+    Loading
   },
   data () {
     return {
       topic: {},
       user: {},
       comments: [],
-      id: null
+      id: null,
+      loading_status: true
     }
   },
   mounted () {
@@ -57,6 +61,7 @@ export default {
                 this.user = this.topic.user
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
+                this.loading_status = false
               } else {
                 console.log('取得失敗')
               }
