@@ -2,7 +2,7 @@
   <div id="nav">
     <router-link to="/">ホーム</router-link> |
     <template v-if="authenticated">
-      <a>マイページ</a>
+      <router-link to="/mypage">mypage</router-link>
     </template>
     <template v-else>
       <router-link to="/login">ログイン</router-link>
