@@ -1,31 +1,18 @@
 <template>
   <div>
-    <Fieldset v-for="comment in comments" :key="comment.id">
-      <template #legend>
-        <span>{{comment.user.name}}</span>
-      </template>
-      <div class="comment-text">
-        {{comment.body}}
-      </div>
-    </Fieldset>
+    <Comment :comment="c" v-for="c in comments" :key="c.id"/>
   </div>
 </template>
 
 <script>
+import Comment from '@/components/Comment '
 export default {
   name: 'Comments',
+  components: { Comment },
   props: {
     comments: Array
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.p-fieldset {
-  margin-top: 20px;
-}
-
-.comment-text {
-  white-space:pre-wrap;
-}
-</style>
+<style lang="scss" scoped></style>

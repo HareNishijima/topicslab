@@ -1,7 +1,8 @@
 <template>
   <div>
     <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
-    <Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #content>
         {{user.name}}
       </template>
@@ -12,23 +13,28 @@
 <script>
 import axios from '@/supports/axios'
 import Modal from '@/components/Modal'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'user',
   components: {
-    Modal
+    Modal,
+    Loading
   },
   data () {
     return {
       id: null,
       user: {},
       errMessage: 'ユーザー情報の取得に失敗しました．',
-      showContent: false
+      showContent: false,
+      topics: {},
+      comments: {},
+      loading_status: true
     }
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('login')
+      this.$router.push('/login')
       return
     }
 
@@ -44,9 +50,12 @@ export default {
         .then(() => {
           axios.get(`/api/user/${this.id}`)
             .then((res) => {
-              console.log(res)
               if (res.status === 200) {
-                this.user = res.data
+                this.user = res.data[0]
+                //  ユーザが投降したトピック、コメントはuser.comments、user.topicsにリストで入っている
+                this.topics = this.user.topics
+                this.comments = this.user.comments
+                this.loading_status = false
               } else {
                 console.log('取得失敗')
                 this.openModal()

@@ -28,9 +28,12 @@ class AddColumnToCommentTable extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
+            /*
             $table->dropColumn('body');
             $table->dropColumn('topic_id');
             $table->dropColumn('user_id');
+            */
+            Schema::dropIfExists('comments');
         });
     }
 }

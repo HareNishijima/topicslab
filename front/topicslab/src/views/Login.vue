@@ -3,7 +3,7 @@
     <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
-        Login
+        ログイン
       </template>
       <template #content>
         <div class="fields">
@@ -17,7 +17,10 @@
           </div>
         </div>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Login" v-on:click="login" />
+          <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
+        </div>
+        <div class="link-register">
+         <router-link to="/register">新規登録</router-link>
         </div>
       </template>
     </Card>
@@ -95,6 +98,10 @@ export default {
       display: block;
       width: 100%;
     }
+  }
+  //エラー時メッセージの色
+  span{
+    color: #d00;
   }
 }
 </style>

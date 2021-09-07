@@ -1,29 +1,31 @@
-mas<template>
-  <div>
-    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
-    <Card>
-      <template #title>
-        新しいTopicを投稿しよう
-      </template>
-      <template #content>
-        <div class="p-field">
-          <label for="title">Topicタイトル</label>
-          <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
-          <small id="title-help">タイトルを入力してください。</small>
-          <p>{{messages.title}}</p>
-        </div>
-        <div class="p-field">
-          <label for="title">Topic内容</label>
-          <Textarea v-model="body" :autoResize="true" rows="10" />
-          <p>{{messages.body}}</p>
-        </div>
-        <div class="p-field">
-          <Button icon="pi pi-check" label="Save" v-on:click="submit" />
-          <p>{{messages.submit}}</p>
-        </div>
-      </template>
-    </Card>
-  </div>
+
+<template>
+ <div>
+  <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
+  <Card>
+    <template #title>
+      新しいTopicを投稿しよう
+    </template>
+    <template #content>
+      <div class="p-field">
+        <label for="title">Topicタイトル</label>
+        <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
+        <small id="title-help">タイトルを入力してください。</small>
+        <p><span>{{messages.title}}</span></p>
+        <!-- ↑元々は<p>{{messages.title}}</p>-->
+      </div>
+      <div class="p-field">
+        <label for="title">Topic内容</label>
+        <Textarea v-model="body" :autoResize="true" rows="10" />
+        <p><span>{{messages.body}}</span></p>
+      </div>
+      <div class="p-field">
+        <Button icon="pi pi-check" label="保存" v-on:click="submit" />
+        <p>{{messages.submit}}</p>
+      </div>
+    </template>
+  </Card>
+ </div>
 </template>
 
 <script>
@@ -74,7 +76,8 @@ export default {
           })
             .then((res) => {
               if (res.status === 201) {
-              //
+                console.log('トピック新規作成')
+                console.log(res)
               } else {
                 this.openModal()
               }
@@ -98,9 +101,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .p-field * {
   display: block;
   width: 100%;
+  span{
+    color: #d00;
+  }
 }
 </style>

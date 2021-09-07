@@ -1,17 +1,18 @@
 <template>
   <div>
     <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
-    <Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #title>
-        mypage
+        会員情報
       </template>
       <template #content>
         {{user.name}}
       </template>
       <template #footer>
-        <Button label="Create Topic" v-on:click="toNewTopic" />
-        <Button label="Logout" class="p-button-warning" v-on:click="logout" />
-        <Button label="Withdraw" class="p-button-danger" v-on:click="withdraw" />
+        <Button label="トピックの作成" v-on:click="toNewTopic" />
+        <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
+        <Button label="アカウント削除" class="p-button-danger" v-on:click="withdraw" />
       </template>
     </Card>
   </div>
@@ -20,14 +21,23 @@
 <script>
 import axios from '@/supports/axios'
 import Modal from '@/components/Modal'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'Userself',
+  components: {
+    Loading
+  },
   data () {
     return {
       user: {},
       errMessage: 'ユーザ情報の取得に失敗しました．',
-      showContent: false
+      showContent: false,
+      topics: {},
+      comments: {},
+      topiclikes: {},
+      commentlikes: {},
+      loading_status: true
     }
   },
   components: {
@@ -70,11 +80,28 @@ export default {
         .then(() => {
           axios.get('/api/user')
             .then((res) => {
+              //  ログインしているアカウントの情報を取得
               if (res.status === 200) {
                 this.user = res.data
+                //  ユーザが投稿したトピックやコメントの情報を取得
+                axios.get(`/api/user/${this.user.id}`)
+                  .then((res) => {
+                    //  console.log(res)
+                    if (res.status === 200) {
+                      //  console.log('取得成功')
+                      const data = res.data[0]// 取得したデータ
+                      this.topics = data.topics
+                      this.comments = data.comments
+                      this.topiclikes = data.topiclikes
+                      this.commentlikes = data.commentlikes
+                      this.loading_status = false
+                    } else {
+                      //  console.log('取得失敗')
+                    }
+                  })
               } else {
-                console.log('取得失敗')
                 this.openModal()
+                console.log('ログインしたアカウント情報取得失敗')
               }
             })
         })
