@@ -1,4 +1,4 @@
-L<template>
+<template>
   <div>
     <Loading v-show="loading_status" />
     <Card v-for="topic in topics" :key="topic.id" v-show="!loding_status">
