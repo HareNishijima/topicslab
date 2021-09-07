@@ -15,10 +15,37 @@
       </template>
     </Card>
   </div>
+
+  <h2>投稿トピック一覧</h2>
+  <Loading v-show="loading_status" />
+  <Card v-for="topic in topics" :key="topic.id" v-show="!loding_status">
+    <template #content>
+      <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
+      <h2>
+        <router-link :to="`/topic/${topic.id}`">
+          {{topic.title}}
+        </router-link>
+      </h2>
+    </template>
+  </Card>
+
+  <h2>投稿コメント一覧</h2>
+  <Loading v-show="loading_status" />
+  <Card v-for="comment in comments" :key="comment.id" v-show="!loding_status">
+    <template #content>
+      <span class="topic-date">投稿日：{{moment(comment.created_at)}}</span>
+      <h2>
+        <router-link :to="`/topic/${comment.topic_id}`">
+          {{comment.body}}
+        </router-link>
+      </h2>
+    </template>
+  </Card>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import moment from 'moment'
 import Loading from '@/components/Loading'
 
 export default {
@@ -41,10 +68,12 @@ export default {
       this.$router.push('login')
       return
     }
-
     this.getUser()
   },
   methods: {
+    moment: function (date) {
+      return moment(date).format('YYYY/MM/DD HH:mm:SS')
+    },
     toNewTopic () {
       this.$router.push('topic')
     },
@@ -111,4 +140,14 @@ export default {
     margin-right: 10px;
   }
 }
+
+.p-card.p-component {
+  margin-bottom: 20px;
+}
+.p-card-content {
+  .topic-date {
+    font-size: 80%;
+  }
+}
+
 </style>
