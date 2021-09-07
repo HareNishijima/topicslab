@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #title>
         {{topic.title}}
       </template>
@@ -26,13 +27,15 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Loading from '@/components/Loading'
 
 //  export defaultで囲まれた範囲は他のコンポーネント(templete,style)から参照できるようになる
 export default {
   name: 'Topic',
   components: {
     Comments,
-    CommentForm
+    CommentForm,
+    Loading
   },
   data () {
     return {
@@ -41,6 +44,7 @@ export default {
       topic_likes: {},
       comments: [],
       id: null,
+      loading_status: true,
       likeClicked: false
     }
   },
@@ -78,9 +82,9 @@ export default {
                 this.topic = res.data[0]
                 this.user = this.topic.user
                 this.topic_likes = this.topic.like
-
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
+                this.loading_status = false
                 this.comment_likes = this.comments[0].like
               } else {
                 console.log('取得失敗')
