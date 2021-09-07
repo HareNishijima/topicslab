@@ -66,7 +66,8 @@ export default {
           })
             .then((res) => {
               if (res.status === 201) {
-              //
+                console.log('トピック新規作成')
+                console.log(res)
               } else {
                 this.messages.submit = '送信に失敗しました。'
               }

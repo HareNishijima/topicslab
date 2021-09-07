@@ -17,6 +17,7 @@ class CommentLikesSeeder extends Seeder
      */
     public function run()
     {
+        /*
         DB::table('comment_likes')->insert([
             'user_id' => '1',
             'comment_id' => '1',
@@ -29,5 +30,6 @@ class CommentLikesSeeder extends Seeder
             'user_id' => '2',
             'comment_id' => '2',
         ]);
+        */
     }
 }

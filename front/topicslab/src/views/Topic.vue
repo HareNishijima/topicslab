@@ -10,7 +10,7 @@
           {{topic.body}}
         </div>
         <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
-        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
+        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic(this.topic.id, this.user.id)" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
       </template>
       <template #footer>
         <span>
@@ -68,17 +68,14 @@ export default {
     this.getTopic()
   },
   methods: {
-    likeTopic () {
-      console.log('aaaa')
-      this.likeClicked = true
-    },
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
-                console.log(res)
+                //  console.log('取得成功')
+                //  console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
                 this.topic_likes = this.topic.like
@@ -100,6 +97,34 @@ export default {
     },
     receiveComment (comment) {
       this.comments.push(comment)
+    },
+    //  トピックにいいねをする
+    likeTopic (topicId, userId) {
+      console.log('likeTopic')
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          console.log('sanctum ok')
+          axios.post('/api/topiclike', {
+            topic_id: topicId,
+            user_id: userId
+          })
+            .then((res) => {
+              console.log(res)
+              if (res.status === 201) {
+                console.log('いいねしました')
+                this.likeClicked = true
+              } else {
+                console.log('いいねに失敗しました')
+                console.log(res)
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        .catch((err) => {
+          alert(err)
+        })
     }
   }
 }
