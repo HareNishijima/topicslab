@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Loading v-show="loading_status" />
     <Card v-show="!loading_status">
       <template #title>
@@ -27,6 +28,7 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Modal from '@/components/Modal'
 import Loading from '@/components/Loading'
 
 //  export defaultで囲まれた範囲は他のコンポーネント(templete,style)から参照できるようになる
@@ -35,6 +37,7 @@ export default {
   components: {
     Comments,
     CommentForm,
+    Modal,
     Loading
   },
   data () {
@@ -44,6 +47,8 @@ export default {
       topic_likes: {},
       comments: [],
       id: null,
+      errMessage: 'Topicの取得に失敗しました．',
+      showContent: false
       loading_status: true,
       likeClicked: false
     }
@@ -85,10 +90,12 @@ export default {
                 this.comment_likes = this.comments[0].like
               } else {
                 console.log('取得失敗')
+                this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
+              this.openModal()
             })
         })
         .catch((err) => {
@@ -97,6 +104,12 @@ export default {
     },
     receiveComment (comment) {
       this.comments.push(comment)
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     },
     //  トピックにいいねをする
     likeTopic (topicId, userId) {

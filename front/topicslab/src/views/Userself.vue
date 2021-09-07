@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Loading v-show="loading_status" />
     <Card v-show="!loading_status">
       <template #title>
@@ -19,6 +20,7 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 import Loading from '@/components/Loading'
 
 export default {
@@ -29,12 +31,17 @@ export default {
   data () {
     return {
       user: {},
+      errMessage: 'ユーザ情報の取得に失敗しました．',
+      showContent: false,
       topics: {},
       comments: {},
       topiclikes: {},
       commentlikes: {},
       loading_status: true
     }
+  },
+  components: {
+    Modal
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
@@ -93,6 +100,7 @@ export default {
                     }
                   })
               } else {
+                this.openModal()
                 console.log('ログインしたアカウント情報取得失敗')
               }
             })
@@ -100,6 +108,12 @@ export default {
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         ログイン
@@ -15,7 +16,6 @@
             <InputText id="password" type="password" v-model="password" />
           </div>
         </div>
-        <span>{{message}}</span>
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
@@ -29,15 +29,18 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'Login',
+  components: { Modal },
   data () {
     return {
       email: '',
       password: '',
       error: false,
-      message: ''
+      errMessage: 'ログインに失敗しました。',
+      showContent: false
     }
   },
   methods: {
@@ -53,17 +56,23 @@ export default {
                 console.log('ログイン成功')
                 localStorage.setItem('authenticated', 'true')
               } else {
-                this.message = 'ログインに失敗しました。'
+                this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
-              this.message = 'ログインに失敗しました。'
+              this.openModal()
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }
