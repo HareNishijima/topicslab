@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #content>
         <div class="p-field">
@@ -16,16 +17,22 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'CommentForm',
+  components: {
+    Modal
+  },
   props: {
     topicId: Number
   },
   data () {
     return {
       comment: '',
-      message: ''
+      message: '',
+      errMessage: '送信に失敗しました。',
+      showContent: false
     }
   },
   methods: {
@@ -47,17 +54,26 @@ export default {
                 this.comment = ''
                 this.$emit('sentComment', res.data)
               } else {
-                this.message = '送信に失敗しました。'
+                this.openModal()
               }
             })
             .catch((err) => {
               console.log(err)
-              this.message = '送信に失敗しました。'
+              this.openModal()
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    receiveComment (comment) {
+      this.comments.push(comment)
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

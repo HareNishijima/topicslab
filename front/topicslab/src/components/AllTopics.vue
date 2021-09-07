@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Loading v-show="loading_status" />
     <Card v-for="topic in topics" :key="topic.id" v-show="!loding_status">
         <template #content>
@@ -17,16 +18,25 @@
 <script>
 import axios from '@/supports/axios'
 import moment from 'moment'
-import Loading from '@/components/Loading'
 
+import Modal from '@/components/Modal'
+import Loading from '@/components/Loading'
 export default {
   name: 'AllTopics',
-  components: { Loading },
+  components: { 
+  Modal,
+  Loading
+  },
   data () {
     return {
       topics: [],
-      loading_status: true
+      loading_status: true,
+      errMessage: 'Topicsの取得に失敗しました．',
+      showContent: false
     }
+  },
+  componemts: {
+    Modal
   },
   mounted () {
     this.getAllTopics()
@@ -46,12 +56,19 @@ export default {
                 this.loading_status = false
               } else {
                 console.log('取得失敗')
+                this.openModal()
               }
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }

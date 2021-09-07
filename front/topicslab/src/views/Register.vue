@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Card>
       <template #title>
         新規登録
@@ -30,15 +31,21 @@
 
 <script>
 import axios from '@/supports/axios'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'Register',
+  components: {
+    Modal
+  },
   data () {
     return {
       name: '',
       email: '',
       password: '',
-      message: ''
+      errMessage: 'ユーザー登録に失敗しました。',
+      message: '',
+      showContent: false
     }
   },
   methods: {
@@ -63,17 +70,24 @@ export default {
                 alert('ユーザー登録成功')
                 this.$router.push('/login')
               } else {
+                this.openModal()
                 this.message = 'ユーザー登録に失敗しました。'
               }
             })
             .catch((err) => {
               console.log(err)
-              this.message = 'ユーザー登録に失敗しました。'
+              this.openModal()
             })
         })
         .catch((err) => {
           alert(err)
         })
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
     }
   }
 }
