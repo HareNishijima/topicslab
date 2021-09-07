@@ -22,12 +22,14 @@ export default {
     return {
       id: null,
       user: {},
+      topics: {},
+      comments: {},
       loading_status: true
     }
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('login')
+      this.$router.push('/login')
       return
     }
 
@@ -43,9 +45,11 @@ export default {
         .then(() => {
           axios.get(`/api/user/${this.id}`)
             .then((res) => {
-              console.log(res)
               if (res.status === 200) {
-                this.user = res.data
+                this.user = res.data[0]
+                //  ユーザが投降したトピック、コメントはuser.comments、user.topicsにリストで入っている
+                this.topics = this.user.topics
+                this.comments = this.user.comments
                 this.loading_status = false
               } else {
                 console.log('取得失敗')
