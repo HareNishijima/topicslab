@@ -78,7 +78,6 @@ export default {
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
                 this.comment_likes = this.comments[0].like
-
               } else {
                 console.log('取得失敗')
               }
