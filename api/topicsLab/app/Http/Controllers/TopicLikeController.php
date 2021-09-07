@@ -28,6 +28,8 @@ class TopicLikeController extends Controller
             
         $user = User::find($request->user_id);//user_idと一致するuserのテーブルを取得
         $topiclike->user()->associate($user);//topiclike->->belongsToMany(User::class);
+
+        
         
         $topiclike->save();
 
