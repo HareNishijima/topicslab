@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Loading v-show="loading_status" />
     <Card v-show="!loading_status">
       <template #title>
@@ -66,9 +65,6 @@ export default {
       loading_status: true
     }
   },
-  components: {
-    Modal
-  },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
       this.$router.push('login')
@@ -128,7 +124,6 @@ export default {
                     }
                   })
               } else {
-                this.openModal()
                 console.log('ログインしたアカウント情報取得失敗')
               }
             })
@@ -136,12 +131,6 @@ export default {
         .catch((err) => {
           alert(err)
         })
-    },
-    openModal () {
-      this.showContent = true
-    },
-    closeModal () {
-      this.showContent = false
     }
   }
 }

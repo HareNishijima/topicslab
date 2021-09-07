@@ -48,7 +48,7 @@ export default {
       comments: [],
       id: null,
       errMessage: 'Topicの取得に失敗しました．',
-      showContent: false
+      showContent: false,
       loading_status: true,
       likeClicked: false
     }
@@ -83,7 +83,7 @@ export default {
                 //  console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
-                this.topic_likes = this.topic.like
+                this.topic_likes = this.topic.like//  本当はtopic_likes.lengthでいいねの数を取得できる
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
                 this.loading_status = false
