@@ -9,9 +9,9 @@
       <template #content>
         {{user.name}}
         <div class="p-field">
-          自己紹介文
+          自己紹介文：{{user.introduction}}
         <Textarea  v-model="introduction" :autoResize="true" rows="6" />
-        <Button icon="pi" iconPos="center" class="p-button-rounded p-button-help p-button-outlined p-button-sm" label="保存する" v-on:click="updateIntroduction (this.user.id,'自己紹介文')" />
+        <Button icon="pi" iconPos="center" class="p-button-rounded p-button-help p-button-outlined p-button-sm" label="保存する" v-on:click="updateIntroduction (this.user.id,introduction)" />
         </div>
       </template>
       <template #footer>
