@@ -7,33 +7,34 @@
         {{user.name}}
       </template>
     </Card>
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
+      <template template #content>
+        <TabView>
+          <TabPanel header="トピック一覧">
+            <div v-for="topic in topics" :key="topic.id">
+              <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
+              <h2>
+                <router-link :to="`/topic/${topic.id}`">
+                {{topic.title}}
+              </router-link>
+              </h2>
+            </div>
+          </TabPanel>
+          <TabPanel header="コメント一覧">
+            <div v-for="comment in comments" :key="comment.id">
+                <span class="topic-date">投稿日：{{moment(comment.created_at)}}</span>
+                <h2>
+                  <router-link :to="`/topic/${comment.topic_id}`">
+                  {{comment.body}}
+                  </router-link>
+                </h2>
+            </div>
+          </TabPanel>
+        </TabView>
+      </template>
+    </Card>
   </div>
-
-  <h2>投稿トピック一覧</h2>
-  <Loading v-show="loading_status" />
-  <Card v-for="topic in topics" :key="topic.id" v-show="!loding_status">
-    <template #content>
-      <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
-      <h2>
-        <router-link :to="`/topic/${topic.id}`">
-          {{topic.title}}
-        </router-link>
-      </h2>
-    </template>
-  </Card>
-
-  <h2>投稿コメント一覧</h2>
-  <Loading v-show="loading_status" />
-  <Card v-for="comment in comments" :key="comment.id" v-show="!loding_status">
-    <template #content>
-      <span class="topic-date">投稿日：{{moment(comment.created_at)}}</span>
-      <h2>
-        <router-link :to="`/topic/${comment.topic_id}`">
-          {{comment.body}}
-        </router-link>
-      </h2>
-    </template>
-  </Card>
 </template>
 
 <script>
@@ -112,3 +113,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.p-card.p-component {
+  margin-bottom: 20px;
+}
+</style>

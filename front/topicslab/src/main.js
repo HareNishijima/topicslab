@@ -7,6 +7,8 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Fieldset from 'primevue/fieldset'
 import Textarea from 'primevue/textarea'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
@@ -31,3 +33,5 @@ app.component('Button', Button)
 app.component('InputText', InputText)
 app.component('Fieldset', Fieldset)
 app.component('Textarea', Textarea)
+app.component('TabView', TabView)
+app.component('TabPanel', TabPanel)
