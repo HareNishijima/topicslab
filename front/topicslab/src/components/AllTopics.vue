@@ -2,7 +2,7 @@
   <div>
     <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Loading v-show="loading_status" />
-    <Card v-for="topic in topics" :key="topic.id" v-show="!loding_status">
+    <Card v-for="topic in topics" :key="topic.id" v-show="!loading_status">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
           <h2>
@@ -18,14 +18,14 @@
 <script>
 import axios from '@/supports/axios'
 import moment from 'moment'
-
 import Modal from '@/components/Modal'
 import Loading from '@/components/Loading'
+
 export default {
   name: 'AllTopics',
-  components: { 
-  Modal,
-  Loading
+  components: {
+    Modal,
+    Loading
   },
   data () {
     return {

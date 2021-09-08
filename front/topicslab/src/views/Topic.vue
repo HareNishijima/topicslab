@@ -48,7 +48,7 @@ export default {
       comments: [],
       id: null,
       errMessage: 'Topicの取得に失敗しました．',
-      showContent: false
+      showContent: false,
       loading_status: true,
       likeClicked: false
     }

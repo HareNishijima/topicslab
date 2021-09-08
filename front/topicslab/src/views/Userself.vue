@@ -48,11 +48,13 @@
 import axios from '@/supports/axios'
 import moment from 'moment'
 import Loading from '@/components/Loading'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'Userself',
   components: {
-    Loading
+    Loading,
+    Modal
   },
   data () {
     return {
@@ -65,9 +67,6 @@ export default {
       commentlikes: {},
       loading_status: true
     }
-  },
-  components: {
-    Modal
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
