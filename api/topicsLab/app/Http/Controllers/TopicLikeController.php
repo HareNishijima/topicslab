@@ -33,6 +33,6 @@ class TopicLikeController extends Controller
         
         $topiclike->save();
 
-        return $topiclike; 
-    }  
+        return $topiclike;
+    }
 }

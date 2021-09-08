@@ -22,5 +22,4 @@ class TopicLike extends Model
         //return $this->belongsToMany(User::class);
         return $this->belongsTo(User::class);
     }
-
 }

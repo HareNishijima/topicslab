@@ -31,6 +31,6 @@ class CommentLikeController extends Controller
   
         $commentlike->save();
 
-        return $commentlike; 
-    }  
+        return $commentlike;
+    }
 }
