@@ -3,7 +3,7 @@
     <div class="modal modal-overlay" @click.self="$emit('close')">
       <div class="modal-window">
         <div class="modal-content">
-          <p>{{message}}</p>
+          <p><span>{{message}}</span></p>
         </div>
         <footer class="modal-footer">
           <slot name="footer">
@@ -23,6 +23,9 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+span{
+    color: #d00;
+  }
 .modal {
   &.modal-overlay {
     display: flex;
