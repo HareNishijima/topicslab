@@ -6,6 +6,11 @@
       </template>
       <template #content>
         {{user.name}}
+        <div class="p-field">
+          自己紹介文
+        <Textarea  v-model="introduction" :autoResize="true" rows="6" />
+        <Button icon="pi" iconPos="center" class="p-button-rounded p-button-help p-button-outlined p-button-sm" label="保存する" v-on:click="submit" />
+        </div>
       </template>
       <template #footer>
         <Button label="トピックの作成" v-on:click="toNewTopic" />
@@ -23,7 +28,8 @@ export default {
   name: 'Userself',
   data () {
     return {
-      user: {}
+      user: {},
+      introduction: ''
     }
   },
   mounted () {
@@ -35,6 +41,13 @@ export default {
     this.getUser()
   },
   methods: {
+    // submit () {
+    //   const comment = this.comment.trim()
+    //   if (!comment) {
+    //     this.message = '未記入(空白のみ)は送信できません。'
+    //     return
+    //   }
+    // },
     toNewTopic () {
       this.$router.push('topic')
     },
@@ -79,6 +92,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@mixin button-center(){display: block;
+  margin: 0 auto;
+}
+Textarea{
+  width: 100%;
+  margin-bottom: 15px;
+}
+.p-field{
+  margin-top: 15px;
+  Button{
+    @include button-center;
+  }
+}
 .p-card-footer {
   .p-button {
     margin-right: 10px;
