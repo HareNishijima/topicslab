@@ -71,3 +71,8 @@ Route::middleware('auth:sanctum')->get('/user/{user}', [
     App\Http\Controllers\UserController::class,
     'show'
 ]);
+
+Route::middleware('auth:sanctum')->post('/user_update', [
+    App\Http\Controllers\UserController::class,
+    'update'
+]);
