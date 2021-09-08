@@ -7,7 +7,7 @@
         会員情報
       </template>
       <template #content>
-        {{user.name}}
+        ユーザ名：{{user.name}}
         <div class="p-field">
           自己紹介文：{{user.introduction}}
         <Textarea  v-model="introduction" :autoResize="true" rows="6" />
