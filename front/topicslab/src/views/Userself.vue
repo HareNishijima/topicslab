@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
     <Loading v-show="loading_status" />
     <Card v-show="!loading_status">
       <template #title>
