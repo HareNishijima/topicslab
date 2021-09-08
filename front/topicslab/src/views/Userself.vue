@@ -47,11 +47,13 @@
 import axios from '@/supports/axios'
 import moment from 'moment'
 import Loading from '@/components/Loading'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'Userself',
   components: {
-    Loading
+    Loading,
+    Modal
   },
   data () {
     return {
