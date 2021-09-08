@@ -23,5 +23,4 @@ class Comment extends Model
     {
         return $this->hasMany(CommentLike::class);//コメントに対していいねをしたuser_idが複数
     }
-
 }
