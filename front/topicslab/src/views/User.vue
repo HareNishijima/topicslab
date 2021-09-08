@@ -4,7 +4,10 @@
     <Loading v-show="loading_status" />
     <Card v-show="!loading_status">
       <template #content>
-        {{user.name}}
+        ユーザ名：{{user.name}}
+        <div class="p-field">
+          自己紹介文：{{user.introduction}}
+        </div>
       </template>
     </Card>
     <Loading v-show="loading_status" />
@@ -117,5 +120,12 @@ export default {
 <style lang="scss" scoped>
 .p-card.p-component {
   margin-bottom: 20px;
+}
+.p-field{
+  margin-top: 15px;
+  Button{
+    display: block;
+    margin: 0 auto;
+  }
 }
 </style>
