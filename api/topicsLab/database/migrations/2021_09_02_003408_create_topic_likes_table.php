@@ -16,8 +16,10 @@ class CreateTopicLikesTable extends Migration
         //トピックのいいねの数を保存するテーブル
         Schema::create('topic_likes', function (Blueprint $table) {
             //$table->integer('good');
+            $table->id();
+            $table->timestamps();
             $table->foreignId('topic_id')->constrained('topics');//トピックのid
-            $table->integer('user_id');//いいねをした人のユーザid
+            $table->foreignId('user_id')->constrained('users');//いいねをした人のユーザid
             /*topic_idとuser_idは1対1の関係にある
             いいねが増えるとtopic_likesのテーブルが増える
             withCount()で同じtopic_idを持つテーブル数を取得→いいねの数になる

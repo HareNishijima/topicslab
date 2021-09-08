@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Card>
+    <Modal :message="this.errMessage" v-show="showContent" @close="closeModal" />
+    <Loading v-show="loading_status" />
+    <Card v-show="!loading_status">
       <template #title>
         {{topic.title}}
       </template>
@@ -9,7 +11,7 @@
           {{topic.body}}
         </div>
         <!-- ボタンクリック後のclass p-button-raised  クリック前のclass p-button-text 他は同じ-->
-        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
+        <Button icon="pi pi-heart" v-bind:class="buttonClass" v-on:click="likeTopic(this.topic.id, this.user.id)" class=" p-button-danger p-button-rounded p-button-sm" iconPos="right"/>
       </template>
       <template #footer>
         <span>
@@ -26,13 +28,17 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Modal from '@/components/Modal'
+import Loading from '@/components/Loading'
 
 //  export defaultで囲まれた範囲は他のコンポーネント(templete,style)から参照できるようになる
 export default {
   name: 'Topic',
   components: {
     Comments,
-    CommentForm
+    CommentForm,
+    Modal,
+    Loading
   },
   data () {
     return {
@@ -41,6 +47,9 @@ export default {
       topic_likes: {},
       comments: [],
       id: null,
+      errMessage: 'Topicの取得に失敗しました．',
+      showContent: false,
+      loading_status: true,
       likeClicked: false
     }
   },
@@ -64,26 +73,62 @@ export default {
     this.getTopic()
   },
   methods: {
-    likeTopic () {
-      console.log('aaaa')
-      this.likeClicked = true
-    },
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.get(`/api/topic/${this.id}`)
             .then((res) => {
               if (res.status === 200 && res.data.length === 1) {
-                console.log(res)
+                //  console.log('取得成功')
+                //  console.log(res)
                 this.topic = res.data[0]
                 this.user = this.topic.user
-                this.topic_likes = this.topic.like
-
+                this.topic_likes = this.topic.like//  本当はtopic_likes.lengthでいいねの数を取得できる
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
+                this.loading_status = false
                 this.comment_likes = this.comments[0].like
               } else {
                 console.log('取得失敗')
+                this.openModal()
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              this.openModal()
+            })
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    },
+    receiveComment (comment) {
+      this.comments.push(comment)
+    },
+    openModal () {
+      this.showContent = true
+    },
+    closeModal () {
+      this.showContent = false
+    },
+    //  トピックにいいねをする
+    likeTopic (topicId, userId) {
+      console.log('likeTopic')
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          console.log('sanctum ok')
+          axios.post('/api/topiclike', {
+            topic_id: topicId,
+            user_id: userId
+          })
+            .then((res) => {
+              console.log(res)
+              if (res.status === 201) {
+                console.log('いいねしました')
+                this.likeClicked = true
+              } else {
+                console.log('いいねに失敗しました')
+                console.log(res)
               }
             })
             .catch((err) => {
@@ -93,9 +138,6 @@ export default {
         .catch((err) => {
           alert(err)
         })
-    },
-    receiveComment (comment) {
-      this.comments.push(comment)
     }
   }
 }

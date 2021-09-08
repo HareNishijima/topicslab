@@ -53,8 +53,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //topicからuser_idが一致する情報を取得
-        return User::where('id', $user->id)->with('topics.user', 'comments.user')->get();
+        //user_idを持つ全テーブルを取得
+        return User::where('id', $user->id)->with('topics', 'comments', 'topiclikes', 'commentlikes')->get();
         //return $user;
     }
 
@@ -76,9 +76,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    //public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = User::find($request->user_id);//自分のテーブルを取得
+        $user->introduction = $request->introduction;//自己紹介文を更新するだけ
+        $user->save();
+
+        return $user;
     }
 
     /**

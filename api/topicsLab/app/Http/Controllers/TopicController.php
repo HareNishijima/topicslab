@@ -40,6 +40,7 @@ class TopicController extends Controller
         $topic = new Topic;
         $topic->title = $request->title;
         $topic->body = $request->body;
+        $topic->like_count = 0;
         $topic->user()->associate($user);
         $topic->save();
 

@@ -10,14 +10,17 @@ class TopicLike extends Model
 
     use HasFactory;
 
-    public function topics()
+    //1トピックに対していいねをした人は1人
+
+    public function topic()
     {
-        return $this->belongsTo(Topic::class);//いいねの数はトピックが持つ情報(逆の関係)
+        return $this->belongsTo(Topic::class);
     }
 
     public function user()
     {
-        return $this->hasMany(User::class);//トピックのいいねに対してユーザは複数(user_id)
+        //return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }

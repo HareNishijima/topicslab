@@ -35,5 +35,5 @@ class AddColumnToTopicTable extends Migration
             */
             Schema::dropIfExists('topics');
         });
-    }
+    }   
 }

@@ -9,13 +9,13 @@ class CommentLike extends Model
 {
     use HasFactory;
 
-    public function comments()
+    public function comment()
     {
         return $this->belongsTo(Comment::class);//いいねの数はコメントが持つ情報(逆の関係)
     }
 
     public function user()
     {
-        return $this->hasMany(User::class);//コメントのいいねに対してユーザは複数(user_id)
+        return $this->belongsTo(User::class);//いいねの数はユーザが複数持つ情報(逆の関係)
     }
 }

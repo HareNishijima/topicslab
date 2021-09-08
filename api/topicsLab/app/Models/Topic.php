@@ -20,7 +20,7 @@ class Topic extends Model
         return $this->hasMany(Comment::class);//トピックは複数のコメントを持つ
     }
 
-    public function like()//いいねの数
+    public function like()//いいねの情報
     {
         return $this->hasMany(TopicLike::class);//トピックに対していいねをしたuser_idが複数
     }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | ミドルウェアグループが割り当てられたグループ内で読み込まれます。APIの構築をお楽しみください。
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -51,12 +52,27 @@ Route::middleware('auth:sanctum')->post('/comment', [
     'store'
 ]);
 
+Route::middleware('auth:sanctum')->post('/commentlike', [
+    App\Http\Controllers\CommentLikeController::class,
+    'store'
+]);
+
 Route::middleware('auth:sanctum')->post('/topic', [
     App\Http\Controllers\TopicController::class,
+    'store'
+]);
+
+Route::middleware('auth:sanctum')->post('/topiclike', [
+    App\Http\Controllers\TopiclikeController::class,
     'store'
 ]);
 
 Route::middleware('auth:sanctum')->get('/user/{user}', [
     App\Http\Controllers\UserController::class,
     'show'
+]);
+
+Route::middleware('auth:sanctum')->post('/user_update', [
+    App\Http\Controllers\UserController::class,
+    'update'
 ]);
