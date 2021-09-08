@@ -8,11 +8,14 @@
       </template>
       <template #content>
         {{user.name}}
+        {{user.introduction}}
       </template>
       <template #footer>
         <Button label="トピックの作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="アカウント削除" class="p-button-danger" v-on:click="withdraw" />
+        <!--↓仮入力 消してください-->
+        <Button label="自己紹介文の更新" v-on:click="updateIntroduction(this.user.id,'更新成功')" />
       </template>
     </Card>
   </div>
@@ -129,6 +132,32 @@ export default {
               } else {
                 console.log('ログインしたアカウント情報取得失敗')
               }
+            })
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    },
+    //  自己紹介文の入力
+    updateIntroduction (userId, getIntroduction) {
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.post('/api/user_update', {
+            user_id: userId, //  ユーザid(検索用)
+            introduction: getIntroduction//  自己紹介文
+          })
+            .then((res) => {
+              console.log(res)
+              // status200でもデータベースは更新されている
+              if (res.status === 201) {
+                //  リダイレクト
+                this.$router.push('/mypage')
+              } else {
+                //
+              }
+            })
+            .catch((err) => {
+              console.log(err)
             })
         })
         .catch((err) => {

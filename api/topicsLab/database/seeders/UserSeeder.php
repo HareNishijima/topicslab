@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'name' => 'tanaka',
             'email' => 'tanaka@example.com',
             'password' => Hash::make('password'),
+            'introduction' => '田中です。よろしくお願いします。',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'name' => 'yamada',
             'email' => 'yamada@example.com',
             'password' => Hash::make('password'),
+            'introduction' => '環境問題を解決しましょう！',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
