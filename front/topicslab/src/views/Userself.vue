@@ -11,15 +11,13 @@
         <div class="p-field">
           自己紹介文
         <Textarea  v-model="introduction" :autoResize="true" rows="6" />
-        <Button icon="pi" iconPos="center" class="p-button-rounded p-button-help p-button-outlined p-button-sm" label="保存する" v-on:click="submit" />
+        <Button icon="pi" iconPos="center" class="p-button-rounded p-button-help p-button-outlined p-button-sm" label="保存する" v-on:click="updateIntroduction (this.user.id,'自己紹介文')" />
         </div>
       </template>
       <template #footer>
         <Button label="トピックの作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="アカウント削除" class="p-button-danger" v-on:click="withdraw" />
-        <!--↓仮入力 消してください-->
-        <Button label="自己紹介文の更新" v-on:click="updateIntroduction(this.user.id,'更新成功')" />
       </template>
     </Card>
     <Loading v-show="loading_status" />
