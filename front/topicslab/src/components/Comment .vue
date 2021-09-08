@@ -2,7 +2,11 @@
   <div>
     <Fieldset>
       <template #legend>
-        <span>{{comment.user.name}}</span>
+        <span>
+          <router-link :to="`/user/${comment.user_id}`">
+          {{comment.user.name}}
+          </router-link>
+        </span>
       </template>
       <div class="comment-text">
         {{comment.body}}
